@@ -1,6 +1,6 @@
 # Font Licenses
 
-This directory contains open-source font files used to render the resume:
+This folder contains open-source font files used to build the document.
 
 - **Manrope Variable (`ManropeVariable.ttf`)**
   - **License**: [SIL Open Font License 1.1](OFL.txt)

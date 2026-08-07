@@ -1,0 +1,5 @@
+.tmp/
+.venv/
+session-*.md
+__pycache__/
+*.pyc

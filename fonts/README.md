@@ -9,6 +9,13 @@ This folder contains open-source font files used to build the document.
   - **Upstream Source**: [Google Fonts Repository](https://github.com/google/fonts/tree/main/ofl/manrope)
   - **Official Site**: [manropefont.com](https://manropefont.com/)
 
+- **JetBrains Mono Variable (`JetBrainsMonoVariable.ttf`)**
+  - **License**: [SIL Open Font License 1.1](OFL.txt)
+  - **Copyright**: Copyright 2020 JetBrains s.r.o.
+  - **Font Specimen**: [Google Fonts JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono)
+  - **Upstream Source**: [Google Fonts Repository](https://github.com/google/fonts/tree/main/ofl/jetbrainsmono)
+  - **Official Site**: [jetbrains.com/lp/mono](https://www.jetbrains.com/lp/mono/)
+
 - **Font Awesome 7 Free & Brands (`Font Awesome 7 Free-Regular-400.otf`, `Font Awesome 7 Brands-Regular-400.otf`)**
   - **License**: [SIL Open Font License 1.1](https://scripts.sil.org/OFL) (Fonts) / [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (Icons)
   - **Copyright**: Fonticons, Inc. (`https://fontawesome.com`)

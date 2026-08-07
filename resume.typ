@@ -3,43 +3,53 @@
 #let muted = rgb("5d5d5d")
 #let divider = rgb("d1d5db")
 
+// --- CENTRAL TYPOGRAPHY CONFIGURATION (Scaled +10%) ---
+#let font-header-name = 30.8pt
+#let font-header-contact = 10.12pt
+#let font-section-title = 14.85pt
+#let font-entry-title = 11.88pt
+#let font-subtitle = 10.12pt
+#let font-body = 10.67pt
+#let font-raw-scale = 1em
+
 #set page(
   paper: "a4",
-  margin: (x: 1.5cm, y: 1.25cm),
+  margin: (x: 1.35cm, y: 1.1cm),
 )
-#set text(font: "Manrope", size: 9.7pt, fill: ink)
+#set text(font: "Manrope", size: font-body, fill: ink)
+#show raw: set text(font: "JetBrains Mono", size: font-raw-scale)
 #set par(leading: 0.68em, spacing: 0pt)
 #set block(spacing: 0pt)
-#set list(indent: 0pt, body-indent: 0.55em, spacing: 0.6em)
+#set list(indent: 0pt, body-indent: 0.55em, spacing: 0.55em)
 
 // --- HEADER BLOCK ---
 #block(
   width: 100%,
-  below: 1.35em,
+  below: 1.25em,
   [
-    #text(size: 28pt, weight: "bold")[#text(fill: accent)[Omkar]#text(tracking: 0.0038em)[ Chandorkar]]
-    #v(12pt)
+    #text(size: font-header-name, weight: "bold")[#text(fill: accent)[Omkar]#text(tracking: 0.0038em)[ Chandorkar]]
+    #v(10pt)
     #grid(
       columns: (auto, auto, auto, auto),
       column-gutter: 11pt,
-      text(size: 9.2pt, fill: muted)[
+      text(size: font-header-contact, fill: muted)[
         #link("https://github.com/gotenksIN")[
-          #text(font: "Font Awesome 7 Brands", size: 9.2pt)[\u{f09b}] #h(2pt)gotenksIN
+          #text(font: "Font Awesome 7 Brands", size: font-header-contact)[\u{f09b}] #h(2pt)gotenksIN
         ]
       ],
-      text(size: 9.2pt, fill: muted)[
+      text(size: font-header-contact, fill: muted)[
         #link("https://t.me/gotenksIN")[
-          #text(font: "Font Awesome 7 Brands", size: 9.2pt)[\u{f2c6}] #h(2pt)\@gotenksIN
+          #text(font: "Font Awesome 7 Brands", size: font-header-contact)[\u{f2c6}] #h(2pt)\@gotenksIN
         ]
       ],
-      text(size: 9.2pt, fill: muted)[
+      text(size: font-header-contact, fill: muted)[
         #link("mailto:omkar0926@gmail.com")[
-          #text(font: "Font Awesome 7 Free", size: 9.2pt)[\u{f0e0}] #h(2pt)omkar0926\@gmail.com
+          #text(font: "Font Awesome 7 Free", size: font-header-contact)[\u{f0e0}] #h(2pt)omkar0926\@gmail.com
         ]
       ],
-      text(size: 9.2pt, fill: muted)[
+      text(size: font-header-contact, fill: muted)[
         #link("https://www.linkedin.com/in/omkarch")[
-          #text(font: "Font Awesome 7 Brands", size: 9.2pt)[\u{f08c}] #h(2pt)Omkar Chandorkar
+          #text(font: "Font Awesome 7 Brands", size: font-header-contact)[\u{f08c}] #h(2pt)Omkar Chandorkar
         ]
       ],
     )
@@ -51,24 +61,24 @@
 // Unified section block controller for ALL 3 sections
 #let section-block(title, body) = block(
   width: 100%,
-  above: 18pt,
+  above: 17pt,
   below: 0pt,
   [
     #grid(
       columns: (auto, 1fr),
       column-gutter: 6.68pt,
       align: bottom,
-      text(size: 13.5pt, weight: "bold", fill: accent, title),
+      text(size: font-section-title, weight: "bold", fill: accent, title),
       line(length: 100%, stroke: 0.6pt + divider),
     )
-    #v(11pt)
+    #v(9.5pt)
     #body
   ]
 )
 
 // Unified entry block controller for ALL entries
-#let github-icon = text(font: "Font Awesome 7 Brands", size: 10pt, fill: muted)[\u{f09b}]
-#let browser-icon = text(font: "Font Awesome 7 Free", size: 9.5pt, fill: muted)[\u{f045}]
+#let github-icon = text(font: "Font Awesome 7 Brands", size: 10.5pt, fill: muted)[\u{f09b}]
+#let browser-icon = text(font: "Font Awesome 7 Free", size: 10pt, fill: muted)[\u{f045}]
 
 #let entry-block(
   title: none,
@@ -77,11 +87,11 @@
   link-type: "github",
   subtitle: none,
   body: none,
-  title-size: 10.8pt,
-  body-size: 9.7pt,
+  title-size: font-entry-title,
+  body-size: font-body,
 ) = block(
   width: 100%,
-  below: 13pt,
+  below: 11pt,
   [
     #if title != none [
       #let dests = if destinations.len() > 0 { destinations } else if destination != none { (destination,) } else { () }
@@ -92,11 +102,11 @@
         #let icon-links = dests.map(url => link(url)[#icon])
         #icon-links.join(h(7pt))
       ]
-      #v(6.5pt)
+      #v(5pt)
     ]
     #if subtitle != none [
-      #text(size: 9.2pt, fill: muted)[#subtitle]
-      #v(6.5pt)
+      #text(size: font-subtitle, fill: muted)[#subtitle]
+      #v(5pt)
     ]
     #if body != none [
       #text(size: body-size)[#body]
@@ -110,8 +120,6 @@
     title: "Video Subtitler",
     destination: "https://github.com/gotenksIN/video-subtitler",
     link-type: "github",
-    title-size: 11.9pt,
-    body-size: 10.7pt,
     body: [
       - High-performance Gemini CLI generating syllable-accurate English VTT subtitles via parallel processing.
       - Implemented stream-chunking with codec-aware overlap context to bypass API payload limits and preserve boundary continuity across clips.
@@ -126,8 +134,6 @@
       "https://github.com/gotenksIN/opencode2-goal-plugin",
     ),
     link-type: "github",
-    title-size: 11.9pt,
-    body-size: 10.7pt,
     body: [
       - `opencode-websearch-cited-fork`: Grounded web search with inline citations and sources list.
       - `opencode2-goal-plugin`: Persistent goals, progress tracking, evidence capture, and auto-continuation.
@@ -138,8 +144,6 @@
     title: "Pi Extensions",
     destination: "https://github.com/gotenksIN/pi-extensions",
     link-type: "github",
-    title-size: 11.9pt,
-    body-size: 10.7pt,
     body: [
       - `bwrap-sandbox`: Added a Bubblewrap security boundary and approval gate for Bash and file tools.
       - `websearch`: Added grounded web search with citations and provider fallback.

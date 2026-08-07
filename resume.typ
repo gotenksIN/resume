@@ -17,7 +17,7 @@
   width: 100%,
   below: 1.35em,
   [
-    #text(size: 28pt, fill: accent)[Omkar]#text(size: 28pt, weight: "bold", tracking: 0.0038em)[ Chandorkar]
+    #text(size: 28pt, weight: "bold")[#text(fill: accent)[Omkar]#text(tracking: 0.0038em)[ Chandorkar]]
     #v(12pt)
     #grid(
       columns: (auto, auto, auto, auto),

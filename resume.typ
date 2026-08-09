@@ -130,12 +130,12 @@
   #entry-block(
     title: "OpenCode Agent Plugins",
     destinations: (
-      "https://github.com/gotenksIN/opencode-websearch-cited-fork",
+      "https://github.com/gotenksIN/opencode-websearch-addons",
       "https://github.com/gotenksIN/opencode2-goal-plugin",
     ),
     link-type: "github",
     body: [
-      - `opencode-websearch-cited-fork`: Grounded web search with inline citations and sources list.
+      - `opencode-websearch-addons`: Grounded web search via native Google Gemini and OpenAI implementations, with provider fallback.
       - `opencode2-goal-plugin`: Persistent goals, progress tracking, evidence capture, and auto-continuation.
     ],
   )

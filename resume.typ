@@ -121,8 +121,8 @@
     destination: "https://github.com/gotenksIN/video-subtitler",
     link-type: "github",
     body: [
-      - High-performance Gemini CLI generating syllable-accurate English VTT subtitles via parallel processing.
-      - Implemented stream-chunking with codec-aware overlap context to bypass API payload limits and preserve boundary continuity across clips.
+      - Developed a Gemini CLI tool that generates syllable-accurate English VTT subtitles using parallel processing.
+      - Implemented stream chunking with codec-aware overlap context to prevent API payload limits and preserve boundary continuity across clips.
       - Built automated timestamp stitching with cue-overlap healing and a secondary global LLM pass for full-script context, grammar, and character refinement.
     ],
   )
@@ -135,7 +135,7 @@
     ),
     link-type: "github",
     body: [
-      - `opencode-websearch-addons`: Grounded web search via native Google Gemini and OpenAI implementations, with provider fallback.
+      - `opencode-websearch-addons`: Grounded web search using direct Google Gemini and OpenAI API integrations, with provider fallback.
       - `opencode2-goal-plugin`: Persistent goals, progress tracking, evidence capture, and auto-continuation.
     ],
   )
@@ -160,10 +160,10 @@
     link-type: "browser",
     subtitle: "Android Developer | Nov 2023 - Oct 2025",
     body: [
-      - Brought up Daria Bond for Android 14 and Android 15.
-      - Resolved user-reported bugs as needed.
-      - Fixed xTS issues for Android 14 and Android 15 releases.
-      - Fixed Android framework-related bugs.
+      - Brought up the Daria Bond device for Android 14 and Android 15.
+      - Triaged and resolved user-reported bugs.
+      - Resolved xTS test failures for Android 14 and Android 15 releases.
+      - Fixed Android framework bugs.
     ],
   )
 
@@ -184,7 +184,7 @@
     link-type: "browser",
     subtitle: "Android Embedded Engineer | Oct 2022 - Apr 2023",
     body: [
-      - Upgraded Pixel 4 / 4 XL / 5 to Android 12, maintained Samsung S8 / S9 device trees, and authored comprehensive test cases.
+      - Upgraded Pixel 4, 4 XL, and 5 devices to Android 12, maintained Samsung S8 and S9 device trees, and authored test cases.
     ],
   )
 
@@ -194,7 +194,7 @@
     link-type: "browser",
     subtitle: "AOSP Development SDE Intern | Jun 2022 - Sep 2022",
     body: [
-      - Brought up Teracube 2e to Android 12 and maintained LineageOS device trees.
+      - Brought up the Teracube 2e device to Android 12 and maintained LineageOS device trees.
     ],
   )
 
@@ -204,8 +204,8 @@
     link-type: "browser",
     subtitle: "Software Engineering Lead | Nov 2020 - Present",
     body: [
-      - Maintain Qualcomm framework additions, review and merge upstream AOSP branches, and maintain Nothing Phone (2) and POCO F5 on CLO AOSP.
-      - Frequent contributor to LineageOS.
+      - Maintain Qualcomm framework additions, review and merge upstream AOSP branches, and support Nothing Phone (2) and POCO F5 on CLO, Qualcomm's fork of AOSP.
+      - Contribute regularly to LineageOS.
     ],
   )
 ])
@@ -217,7 +217,7 @@
       - *DevOps:* CI/CD automation, release workflows, containers, and build systems.
       - *AI Agent Tooling:* Agent plugins, tool orchestration, sandboxing, and workflow automation.
       - *AOSP:* Platform bring-up, framework debugging, and device trees.
-      - *Linux Systems & Administration:* Comprehensive Linux desktop and system administration experience: Git, Bash, package managers, XDG/Wayland, systemd, security, and troubleshooting.
+      - *Linux Systems & Administration:* System administration and desktop environment configuration using Bash scripting, systemd service management, package managers, security hardening, diagnostic troubleshooting, and an understanding of Wayland protocols and freedesktop standards.
     ],
   )
 ])

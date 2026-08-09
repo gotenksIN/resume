@@ -14,7 +14,7 @@ typst.compile(
 )
 
 # 2. Compile SVG
-svg_bytes = typst.compile(
+svg_output = typst.compile(
     ROOT / "resume.typ",
     root=ROOT,
     font_paths=[ROOT / "fonts"],
@@ -22,6 +22,7 @@ svg_bytes = typst.compile(
     format="svg",
     timestamp=0,
 )
+svg_bytes = svg_output[0] if isinstance(svg_output, list) else svg_output
 (ROOT / "resume.svg").write_bytes(svg_bytes)
 
 # 3. Generate index.html wrapper with sticky top bar and Download PDF button

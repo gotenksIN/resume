@@ -114,16 +114,41 @@
   ]
 )
 
+// --- TECHNICAL SKILLS BLOCK ---
+#section-block("Technical skills", [
+  #entry-block(
+    body: [
+      *Languages:* Go, Python, TypeScript, SQL, Bash #linebreak()
+      *Frameworks:* Gin, Flask #linebreak()
+      *Databases:* PostgreSQL, SQLite #linebreak()
+      *Systems & tooling:* Linux, Git, GitHub Actions, Prometheus
+    ],
+  )
+])
+
 // --- PROJECTS BLOCK ---
 #section-block("Projects", [
   #entry-block(
-    title: "Video Subtitler",
-    destination: "https://github.com/gotenksIN/video-subtitler",
+    title: "Student REST API",
+    destination: "https://github.com/gotenksIN/one2n_sre_bootcamp",
     link-type: "github",
+    subtitle: "Go · PostgreSQL · SQLite | One2N SRE Bootcamp",
     body: [
-      - Developed a Gemini CLI tool that generates syllable-accurate English VTT subtitles using parallel processing.
-      - Implemented stream chunking with codec-aware overlap context to prevent API payload limits and preserve boundary continuity across clips.
-      - Built automated timestamp stitching with cue-overlap healing and a secondary global LLM pass for full-script context, grammar, and character refinement.
+      - Implemented a Go student-management backend with REST CRUD endpoints and paginated queries.
+      - Implemented PostgreSQL and SQLite persistence, database migrations, strict JSON validation, and an OpenAPI specification.
+      - Added Prometheus request metrics and integration tests for database timeouts, cancellation, and graceful shutdown.
+    ],
+  )
+
+  #entry-block(
+    title: "Video Subtitler",
+    destination: "https://github.com/gotenksIN/video-subtitler/tree/go-rewrite",
+    link-type: "github",
+    subtitle: "Go · Gemini API · FFmpeg",
+    body: [
+      - Rewrote a Python subtitle-generation CLI in Go, integrating Gemini APIs and FFmpeg to produce English WebVTT subtitles.
+      - Implemented configurable concurrent workers and resumable processing with cached intermediate results.
+      - Added process locking and atomic file writes to protect output during interrupted or concurrent runs.
     ],
   )
 
@@ -140,16 +165,6 @@
     ],
   )
 
-  #entry-block(
-    title: "Pi Extensions",
-    destination: "https://github.com/gotenksIN/pi-extensions",
-    link-type: "github",
-    body: [
-      - `bwrap-sandbox`: Added a Bubblewrap security boundary and approval gate for Bash and file tools.
-      - `websearch`: Added grounded web search with citations and provider fallback.
-      - Built custom subagents with specialized capabilities, isolated tool access, and agent rules for autonomous task orchestration.
-    ],
-  )
 ])
 
 // --- EXPERIENCE BLOCK ---
@@ -161,9 +176,7 @@
     subtitle: "Android Developer | Nov 2023 - Oct 2025",
     body: [
       - Brought up the Daria Bond device for Android 14 and Android 15.
-      - Triaged and resolved user-reported bugs.
-      - Resolved xTS test failures for Android 14 and Android 15 releases.
-      - Fixed Android framework bugs.
+      - Diagnosed framework defects and user-reported bugs; resolved xTS compatibility test failures.
     ],
   )
 
@@ -206,18 +219,6 @@
     body: [
       - Maintain Qualcomm framework additions, review and merge upstream AOSP branches, and support Nothing Phone (2) and POCO F5 on CLO, Qualcomm's fork of AOSP.
       - Contribute regularly to LineageOS.
-    ],
-  )
-])
-
-// --- SKILLS BLOCK ---
-#section-block("Skills", [
-  #entry-block(
-    body: [
-      - *DevOps:* CI/CD automation, release workflows, containers, and build systems.
-      - *AI Agent Tooling:* Agent plugins, tool orchestration, sandboxing, and workflow automation.
-      - *AOSP:* Platform bring-up, framework debugging, and device trees.
-      - *Linux Systems & Administration:* System administration and desktop environment configuration using Bash scripting, systemd service management, package managers, security hardening, diagnostic troubleshooting, and an understanding of Wayland protocols and freedesktop standards.
     ],
   )
 ])

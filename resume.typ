@@ -156,12 +156,12 @@
     title: "OpenCode Agent Plugins",
     destinations: (
       "https://github.com/gotenksIN/opencode-websearch-addons",
-      "https://github.com/gotenksIN/opencode2-goal-plugin",
+      "https://github.com/gotenksIN/opencode-commit-guard",
     ),
     link-type: "github",
     body: [
       - `opencode-websearch-addons`: Grounded web search using direct Google Gemini and OpenAI API integrations, with provider fallback.
-      - `opencode2-goal-plugin`: Persistent goals, progress tracking, evidence capture, and auto-continuation.
+      - `opencode-commit-guard`: Enforces Git commit message format rules and signing baselines during agent sessions.
     ],
   )
 

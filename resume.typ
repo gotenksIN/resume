@@ -118,7 +118,7 @@
 #section-block("Technical skills", [
   #entry-block(
     body: [
-      *Languages:* Go, Python, TypeScript, SQL, Bash #linebreak()
+      *Languages:* TypeScript, Python, Go, SQL, Bash #linebreak()
       *Frameworks:* Gin, Flask #linebreak()
       *Databases:* PostgreSQL, SQLite #linebreak()
       *Systems & tooling:* Linux, Git, GitHub Actions, Prometheus
@@ -129,6 +129,32 @@
 // --- PROJECTS BLOCK ---
 #section-block("Projects", [
   #entry-block(
+    title: "OpenCode Agent Plugins",
+    destinations: (
+      "https://github.com/gotenksIN/opencode-websearch-addons",
+      "https://github.com/gotenksIN/opencode-commit-guard",
+    ),
+    link-type: "github",
+    subtitle: "TypeScript · Gemini API · OpenAI API",
+    body: [
+      - `opencode-websearch-addons`: Adds Gemini and OpenAI web search to the OpenCode websearch tool, with provider fallback.
+      - `opencode-commit-guard`: Checks agent `git commit` commands before they run, rejects commits with bad messages or a missing signing setup, and explains how to fix them.
+    ],
+  )
+
+  #entry-block(
+    title: "Video Subtitler",
+    destination: "https://github.com/gotenksIN/video-subtitler",
+    link-type: "github",
+    subtitle: "Python · Gemini API · FFmpeg",
+    body: [
+      - Built a CLI that uses a multi-pass Gemini pipeline to generate English WebVTT subtitles from video.
+      - Added grounded web research to identify speakers and terms, and validated model output with Pydantic schemas.
+      - Processed video chunks concurrently, with resumable retries and atomic file writes.
+    ],
+  )
+
+  #entry-block(
     title: "Student REST API",
     destination: "https://github.com/gotenksIN/one2n_sre_bootcamp",
     link-type: "github",
@@ -137,31 +163,6 @@
       - Implemented a Go student-management backend with REST CRUD endpoints and paginated queries.
       - Implemented PostgreSQL and SQLite persistence, database migrations, strict JSON validation, and an OpenAPI specification.
       - Added Prometheus request metrics and integration tests for database timeouts, cancellation, and graceful shutdown.
-    ],
-  )
-
-  #entry-block(
-    title: "Video Subtitler",
-    destination: "https://github.com/gotenksIN/video-subtitler/tree/go-rewrite",
-    link-type: "github",
-    subtitle: "Go · Gemini API · FFmpeg",
-    body: [
-      - Rewrote a Python subtitle-generation CLI in Go, integrating Gemini APIs and FFmpeg to produce English WebVTT subtitles.
-      - Implemented configurable concurrent workers and resumable processing with cached intermediate results.
-      - Added process locking and atomic file writes to protect output during interrupted or concurrent runs.
-    ],
-  )
-
-  #entry-block(
-    title: "OpenCode Agent Plugins",
-    destinations: (
-      "https://github.com/gotenksIN/opencode-websearch-addons",
-      "https://github.com/gotenksIN/opencode-commit-guard",
-    ),
-    link-type: "github",
-    body: [
-      - `opencode-websearch-addons`: Grounded web search using direct Google Gemini and OpenAI API integrations, with provider fallback.
-      - `opencode-commit-guard`: Enforces Git commit message format rules and signing baselines during agent sessions.
     ],
   )
 

@@ -23,6 +23,9 @@ svg_output = typst.compile(
     timestamp=0,
 )
 svg_bytes = svg_output[0] if isinstance(svg_output, list) else svg_output
+# index.html embeds the SVG in an <object>, so links must target the top-level
+# page. Otherwise they load inside the <object>, where most sites refuse to render.
+svg_bytes = svg_bytes.replace(b"<a ", b'<a target="_top" ')
 (ROOT / "resume.svg").write_bytes(svg_bytes)
 
 # 3. Generate index.html wrapper with sticky top bar and Download PDF button

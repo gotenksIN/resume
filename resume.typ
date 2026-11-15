@@ -1,225 +1,211 @@
-#let accent = rgb("262f99")
-#let ink = rgb("131a28")
-#let muted = rgb("5d5d5d")
-#let divider = rgb("d1d5db")
+#let highlight = rgb("2563eb")
+#let ink = rgb("0f172a")
+#let secondary = rgb("334155")
+#let muted = rgb("526071")
+#let rule = rgb("cbd5e1")
 
-// --- CENTRAL TYPOGRAPHY CONFIGURATION (Scaled +10%) ---
-#let font-header-name = 30.8pt
-#let font-header-contact = 10.12pt
-#let font-section-title = 14.85pt
-#let font-entry-title = 11.88pt
-#let font-subtitle = 10.12pt
-#let font-body = 10.67pt
-#let font-raw-scale = 1em
+// --- CENTRAL TYPOGRAPHY CONFIGURATION (+5% over 8a baseline) ---
+#let font-name = 25.2pt
+#let font-headline = 10.8pt
+#let font-location = 9.55pt
+#let font-contact-key = 8.6pt
+#let font-contact-val = 9.25pt
+#let font-section-index = 9.25pt
+#let font-section-title = 9.55pt
+#let font-entry-title = 11.0pt
+#let font-entry-role = 9.85pt
+#let font-entry-date = 9.55pt
+#let font-body = 10.1pt
+#let font-raw = 9.2pt
+#let font-arrow = 8.7pt
 
 #set page(
   paper: "a4",
-  margin: (x: 1.35cm, y: 1.1cm),
+  margin: (x: 1.3cm, y: 1.4cm),
 )
-#set text(font: "Manrope", size: font-body, fill: ink)
-#show raw: set text(font: "JetBrains Mono", size: font-raw-scale)
-#set par(leading: 0.68em, spacing: 0pt)
+#set text(font: "Inter", size: font-body, weight: 420, tracking: 0.004em, fill: ink, hyphenate: false)
+#show raw: set text(font: "JetBrains Mono", size: font-raw, weight: 470, tracking: 0em)
+#set par(leading: 0.76em, spacing: 0pt)
 #set block(spacing: 0pt)
-#set list(indent: 0pt, body-indent: 0.55em, spacing: 0.55em)
+#set list(indent: 0pt, body-indent: 0.65em, spacing: 0.96em, marker: text(fill: muted)[–])
 
-// --- HEADER BLOCK ---
-#block(
-  width: 100%,
-  below: 1.25em,
+#let mono = "JetBrains Mono"
+#let ext-arrow = text(size: font-arrow, weight: 450, baseline: -0.25pt, fill: muted)[↗]
+
+// --- AIRY SPEC MASTHEAD ---
+#grid(
+  columns: (1fr, auto),
+  column-gutter: 18pt,
+  align: top,
   [
-    #text(size: font-header-name, weight: "bold")[#text(fill: accent)[Omkar]#text(tracking: 0.0038em)[ Chandorkar]]
-    #v(10pt)
-    #grid(
-      columns: (auto, auto, auto, auto),
-      column-gutter: 11pt,
-      text(size: font-header-contact, fill: muted)[
-        #link("https://github.com/gotenksIN")[
-          #text(font: "Font Awesome 7 Brands", size: font-header-contact)[\u{f09b}] #h(2pt)gotenksIN
-        ]
-      ],
-      text(size: font-header-contact, fill: muted)[
-        #link("https://t.me/gotenksIN")[
-          #text(font: "Font Awesome 7 Brands", size: font-header-contact)[\u{f2c6}] #h(2pt)\@gotenksIN
-        ]
-      ],
-      text(size: font-header-contact, fill: muted)[
-        #link("mailto:omkar0926@gmail.com")[
-          #text(font: "Font Awesome 7 Free", size: font-header-contact)[\u{f0e0}] #h(2pt)omkar0926\@gmail.com
-        ]
-      ],
-      text(size: font-header-contact, fill: muted)[
-        #link("https://www.linkedin.com/in/omkarch")[
-          #text(font: "Font Awesome 7 Brands", size: font-header-contact)[\u{f08c}] #h(2pt)Omkar Chandorkar
-        ]
-      ],
-    )
-  ]
+    #text(size: font-name, weight: 680, tracking: -0.01em, fill: ink)[Omkar Chandorkar]
+    #v(7.5pt)
+    #text(size: font-headline, weight: 500, tracking: 0.005em, fill: secondary)[Software Engineer — AI Tooling, Backend & Systems]
+    #v(7.5pt)
+    #text(size: font-location, weight: 430, fill: muted)[Mumbai, India · Open to Remote]
+  ],
+  grid(
+    columns: (auto, auto),
+    column-gutter: 11pt,
+    row-gutter: 6pt,
+    align: (right, left),
+    text(font: mono, size: font-contact-key, weight: 500, fill: muted)[EMAIL],
+    link("mailto:omkar0926@gmail.com")[#text(font: mono, size: font-contact-val, weight: 450, fill: secondary)[omkar0926\@gmail.com]],
+    text(font: mono, size: font-contact-key, weight: 500, fill: muted)[GITHUB],
+    link("https://github.com/gotenksIN")[#text(font: mono, size: font-contact-val, weight: 450, fill: secondary)[github.com/gotenksIN]],
+    text(font: mono, size: font-contact-key, weight: 500, fill: muted)[LINKEDIN],
+    link("https://www.linkedin.com/in/omkarch")[#text(font: mono, size: font-contact-val, weight: 450, fill: secondary)[linkedin.com/in/omkarch]],
+    text(font: mono, size: font-contact-key, weight: 500, fill: muted)[TELEGRAM],
+    link("https://t.me/gotenksIN")[#text(font: mono, size: font-contact-val, weight: 450, fill: secondary)[t.me/gotenksIN]],
+  ),
 )
+#v(12pt)
+#line(length: 100%, stroke: 1.1pt + ink)
 
-// --- UNIFORM LAYOUT HELPER FUNCTIONS ---
-
-// Unified section block controller for ALL 3 sections
-#let section-block(title, body) = block(
+#let section(index, title, body) = block(
   width: 100%,
-  above: 17pt,
-  below: 0pt,
+  above: 21pt,
   [
+    #text(font: mono, size: font-section-index, weight: 600, fill: highlight)[#index]
+    #h(6pt)
+    #text(size: font-section-title, weight: 650, tracking: 0.08em, fill: ink)[#upper(title)]
+    #v(5.5pt)
     #grid(
-      columns: (auto, 1fr),
-      column-gutter: 6.68pt,
-      align: bottom,
-      text(size: font-section-title, weight: "bold", fill: accent, title),
-      line(length: 100%, stroke: 0.6pt + divider),
+      columns: (30pt, 1fr),
+      line(length: 100%, stroke: 1.3pt + highlight),
+      line(length: 100%, stroke: 0.5pt + rule),
     )
-    #v(9.5pt)
+    #v(10.5pt)
     #body
-  ]
+  ],
 )
 
-// Unified entry block controller for ALL entries
-#let github-icon = text(font: "Font Awesome 7 Brands", size: 10.5pt, fill: muted)[\u{f09b}]
-#let browser-icon = text(font: "Font Awesome 7 Free", size: 10pt, fill: muted)[\u{f045}]
-
-#let entry-block(
-  title: none,
-  destination: none,
-  destinations: (),
-  link-type: "github",
-  subtitle: none,
-  body: none,
-  title-size: font-entry-title,
-  body-size: font-body,
-) = block(
+#let entry(title, role: none, subline: none, date: none, url: none, body: none) = block(
   width: 100%,
-  below: 11pt,
+  below: 15pt,
   [
-    #if title != none [
-      #let dests = if destinations.len() > 0 { destinations } else if destination != none { (destination,) } else { () }
-      #text(size: title-size, weight: "bold")[#title]
-      #if dests.len() > 0 [
-        #text(size: title-size, weight: "bold", fill: muted)[ : ]#h(2pt)
-        #let icon = if link-type == "github" { github-icon } else { browser-icon }
-        #let icon-links = dests.map(url => link(url)[#icon])
-        #icon-links.join(h(7pt))
+    #let left = [
+      #if url != none [
+        #link(url)[#text(size: font-entry-title, weight: 600, tracking: 0.005em, fill: ink)[#title]#h(3pt)#ext-arrow]
+      ] else [
+        #text(size: font-entry-title, weight: 600, tracking: 0.005em, fill: ink)[#title]
       ]
-      #v(5pt)
+      #if role != none [
+        #text(size: font-entry-role, weight: 440, fill: muted)[#h(5pt)·#h(5pt)]
+        #text(size: font-entry-role, weight: 460, fill: secondary)[#role]
+      ]
     ]
-    #if subtitle != none [
-      #text(size: font-subtitle, fill: muted)[#subtitle]
+    #left #if date != none [#h(1fr) #box(text(size: font-entry-date, weight: 460, fill: muted, features: ("tnum",))[#date])]
+    #if subline != none [
       #v(5pt)
+      #text(size: font-entry-role, weight: 450, fill: secondary)[#subline]
     ]
     #if body != none [
-      #text(size: body-size)[#body]
+      #v(7pt)
+      #body
     ]
-  ]
+  ],
 )
 
-// --- TECHNICAL SKILLS BLOCK ---
-#section-block("Technical skills", [
-  #entry-block(
+#section("01", "Technical Skills", [
+  #grid(
+    columns: (120pt, 1fr),
+    column-gutter: 14pt,
+    row-gutter: 7pt,
+    text(size: font-entry-role, weight: 580, fill: secondary)[Languages],
+    [TypeScript, Python, C, C++, Java, Kotlin, Bash],
+    text(size: font-entry-role, weight: 580, fill: secondary)[Tools & Platforms],
+    [AOSP, Bun, Pydantic, FFmpeg, Git, GitHub Actions, Docker, systemd],
+  )
+])
+
+#section("02", "Projects", [
+  #entry(
+    "OpenCode Agent Plugins",
+    role: "TypeScript · Bun · Gemini API · OpenAI API",
+    date: "2026",
     body: [
-      *Languages:* TypeScript, Python, Go, SQL, Bash #linebreak()
-      *Frameworks:* Gin, Flask #linebreak()
-      *Databases:* PostgreSQL, SQLite #linebreak()
-      *Systems & tooling:* Linux, Git, GitHub Actions, Prometheus
+      - #link("https://github.com/gotenksIN/opencode-websearch-addons")[`opencode-websearch-addons`#h(2.5pt)#ext-arrow] — OpenAI/Gemini `websearch` providers with SSE citations and fallback.
+      - #link("https://github.com/gotenksIN/opencode-commit-guard")[`opencode-commit-guard`#h(2.5pt)#ext-arrow] — Pre-execution `git commit` hook enforcing message and signing baselines.
+    ],
+  )
+  #entry(
+    "Video Subtitler",
+    role: "Python · Gemini API · FFmpeg · Pydantic",
+    date: "2026",
+    url: "https://github.com/gotenksIN/video-subtitler",
+    body: [
+      - Built a four-pass CLI generating English WebVTT subtitles with grounded term research and Pydantic.
+      - Added concurrent chunking, boundary audio refinement, resumable retries, and atomic file~writes.
+    ],
+  )
+  #entry(
+    "Telegram Translator",
+    role: "Python · Gemini API · Pydantic · systemd",
+    date: "2026",
+    url: "https://github.com/gotenksIN/telegram-translator",
+    body: [
+      - Built a bot translating replies and X, YouTube (`yt-dlp`), and OpenGraph previews via Gemini JSON.
+      - Enforced SSRF IP checks, sliding-window rate limits, concurrency caps, and systemd memory limits.
     ],
   )
 ])
 
-// --- PROJECTS BLOCK ---
-#section-block("Projects", [
-  #entry-block(
-    title: "OpenCode Agent Plugins",
-    destinations: (
-      "https://github.com/gotenksIN/opencode-websearch-addons",
-      "https://github.com/gotenksIN/opencode-commit-guard",
-    ),
-    link-type: "github",
-    subtitle: "TypeScript · Gemini API · OpenAI API",
+#section("03", "Experience", [
+  #entry(
+    "Multiways",
+    role: "Android Developer",
+    date: "Nov 2023 – Oct 2025",
+    url: "https://multiways.io/",
     body: [
-      - `opencode-websearch-addons`: Adds Gemini and OpenAI web search to the OpenCode websearch tool, with provider fallback.
-      - `opencode-commit-guard`: Checks agent `git commit` commands before they run, rejects commits with bad messages or a missing signing setup, and explains how to fix them.
+      - Brought up the Daria Bond device on Android~14 and led kernel and device-tree upgrades to Android~15.
+      - Resolved framework bugs and CTS/VTS release blockers while maintaining build, OTA, and CI pipelines.
     ],
   )
-
-  #entry-block(
-    title: "Video Subtitler",
-    destination: "https://github.com/gotenksIN/video-subtitler",
-    link-type: "github",
-    subtitle: "Python · Gemini API · FFmpeg",
-    body: [
-      - Built a CLI that uses a multi-pass Gemini pipeline to generate English WebVTT subtitles from video.
-      - Added grounded web research to identify speakers and terms, and validated model output with Pydantic schemas.
-      - Processed video chunks concurrently, with resumable retries and atomic file writes.
-    ],
-  )
-
-  #entry-block(
-    title: "Student REST API",
-    destination: "https://github.com/gotenksIN/one2n_sre_bootcamp",
-    link-type: "github",
-    subtitle: "Go · PostgreSQL · SQLite | One2N SRE Bootcamp",
-    body: [
-      - Implemented a Go student-management backend with REST CRUD endpoints and paginated queries.
-      - Implemented PostgreSQL and SQLite persistence, database migrations, strict JSON validation, and an OpenAPI specification.
-      - Added Prometheus request metrics and integration tests for database timeouts, cancellation, and graceful shutdown.
-    ],
-  )
-
-])
-
-// --- EXPERIENCE BLOCK ---
-#section-block("Experience", [
-  #entry-block(
-    title: "MULTIWAYS",
-    destination: "https://multiways.io/",
-    link-type: "browser",
-    subtitle: "Android Developer | Nov 2023 - Oct 2025",
-    body: [
-      - Brought up the Daria Bond device for Android 14 and Android 15.
-      - Diagnosed framework defects and user-reported bugs; resolved xTS compatibility test failures.
-    ],
-  )
-
-  #entry-block(
-    title: "PearTree",
-    destination: "https://peartree.to/",
-    link-type: "browser",
-    subtitle: "Android Developer | Aug 2023 - Oct 2023",
+  #entry(
+    "PearTree",
+    role: "Android Developer",
+    date: "Aug 2023 – Oct 2023",
+    url: "https://peartree.to/",
     body: [
       - Ported ParallelSpace functionality to GrapheneOS.
       - Researched per-app VM isolation using `crosvm` on Google Pixel devices.
     ],
   )
-
-  #entry-block(
-    title: "Murena",
-    destination: "https://murena.com/",
-    link-type: "browser",
-    subtitle: "Android Embedded Engineer | Oct 2022 - Apr 2023",
+  #entry(
+    "Murena",
+    role: "Android Embedded Engineer",
+    date: "Oct 2022 – Apr 2023",
+    url: "https://murena.com/",
     body: [
-      - Upgraded Pixel 4, 4 XL, and 5 devices to Android 12, maintained Samsung S8 and S9 device trees, and authored test cases.
+      - Upgraded Pixel 4/4 XL/5 to Android~12, maintained Galaxy S8/S9 device trees, and wrote platform tests.
     ],
   )
-
-  #entry-block(
-    title: "Teracube",
-    destination: "https://myteracube.com/",
-    link-type: "browser",
-    subtitle: "AOSP Development SDE Intern | Jun 2022 - Sep 2022",
+  #entry(
+    "Teracube",
+    role: "AOSP Development SDE Intern",
+    date: "Jun 2022 – Sep 2022",
+    url: "https://myteracube.com/",
     body: [
-      - Brought up the Teracube 2e device to Android 12 and maintained LineageOS device trees.
+      - Brought up the Teracube 2e device on Android~12 and maintained LineageOS device trees.
     ],
   )
-
-  #entry-block(
-    title: "AOSPA (Paranoid Android)",
-    destination: "https://aospa.co/",
-    link-type: "browser",
-    subtitle: "Software Engineering Lead | Nov 2020 - Present",
+  #entry(
+    "AOSPA (Paranoid Android)",
+    role: "Software Engineering Lead (Open Source)",
+    date: "Nov 2020 – Present",
+    url: "https://aospa.co/",
     body: [
-      - Maintain Qualcomm framework additions, review and merge upstream AOSP branches, and support Nothing Phone (2) and POCO F5 on CLO, Qualcomm's fork of AOSP.
-      - Contribute regularly to LineageOS.
+      - Lead Qualcomm common trees and framework patches, reviewing AOSP/CLO merges and releases.
+      - Maintain Nothing Phone (2) and POCO F5 on CLO, and contribute regularly to LineageOS.
     ],
+  )
+])
+
+#section("04", "Education", [
+  #entry(
+    "Indira Gandhi National Open University (IGNOU)",
+    subline: "Bachelor of Computer Applications (BCA)",
+    date: "Jul 2024 – Expected 2027",
   )
 ])

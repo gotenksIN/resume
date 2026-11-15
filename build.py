@@ -58,7 +58,7 @@ typst.compile(
     ROOT / "resume.typ",
     output=ROOT / "Omkar_Chandorkar.pdf",
     root=ROOT,
-    font_paths=[FONT_DIR, ROOT / "fonts"],
+    font_paths=[FONT_DIR],
     ignore_system_fonts=True,
     timestamp=0,
 )
@@ -67,7 +67,7 @@ typst.compile(
 svg_output = typst.compile(
     ROOT / "resume.typ",
     root=ROOT,
-    font_paths=[FONT_DIR, ROOT / "fonts"],
+    font_paths=[FONT_DIR],
     ignore_system_fonts=True,
     format="svg",
     timestamp=0,

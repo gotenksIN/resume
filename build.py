@@ -1,14 +1,64 @@
+import io
+import os
 from pathlib import Path
+import re
+import urllib.request
+import zipfile
+
 import typst
 
 ROOT = Path(__file__).parent
+FONT_CACHE_DIR = (
+    Path(os.environ.get("XDG_CACHE_HOME", Path.home() / ".cache"))
+    / "omkar-resume"
+    / "fonts"
+)
+
+FONT_ARCHIVES = [
+    (
+        "https://github.com/rsms/inter/releases/download/v4.1/Inter-4.1.zip",
+        {
+            "InterVariable.ttf": "InterVariable.ttf",
+            "InterVariable-Italic.ttf": "InterVariable-Italic.ttf",
+        },
+    ),
+    (
+        "https://github.com/JetBrains/JetBrainsMono/releases/download/v2.304/JetBrainsMono-2.304.zip",
+        {
+            "fonts/variable/JetBrainsMono[wght].ttf": "JetBrainsMono[wght].ttf",
+            "fonts/variable/JetBrainsMono-Italic[wght].ttf": "JetBrainsMono-Italic[wght].ttf",
+        },
+    ),
+]
+
+
+def ensure_fonts() -> Path:
+    FONT_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    for url, members in FONT_ARCHIVES:
+        missing = [
+            (src, FONT_CACHE_DIR / dest)
+            for src, dest in members.items()
+            if not (FONT_CACHE_DIR / dest).exists()
+        ]
+        if not missing:
+            continue
+        print(f"Fetching external fonts from {url}...")
+        with urllib.request.urlopen(url, timeout=120) as resp:
+            archive_bytes = resp.read()
+        with zipfile.ZipFile(io.BytesIO(archive_bytes)) as zf:
+            for src, dest_path in missing:
+                dest_path.write_bytes(zf.read(src))
+    return FONT_CACHE_DIR
+
+
+FONT_DIR = ensure_fonts()
 
 # 1. Compile PDF
 typst.compile(
     ROOT / "resume.typ",
     output=ROOT / "Omkar_Chandorkar.pdf",
     root=ROOT,
-    font_paths=[ROOT / "fonts"],
+    font_paths=[FONT_DIR, ROOT / "fonts"],
     ignore_system_fonts=True,
     timestamp=0,
 )
@@ -17,28 +67,44 @@ typst.compile(
 svg_output = typst.compile(
     ROOT / "resume.typ",
     root=ROOT,
-    font_paths=[ROOT / "fonts"],
+    font_paths=[FONT_DIR, ROOT / "fonts"],
     ignore_system_fonts=True,
     format="svg",
     timestamp=0,
 )
 svg_bytes = svg_output[0] if isinstance(svg_output, list) else svg_output
-# index.html embeds the SVG in an <object>, so links must target the top-level
-# page. Otherwise they load inside the <object>, where most sites refuse to render.
-svg_bytes = svg_bytes.replace(b"<a ", b'<a target="_top" ')
-(ROOT / "resume.svg").write_bytes(svg_bytes)
+svg = re.sub(
+    r'(<svg\b[^>]*?)width="[^"]*" height="[^"]*"',
+    r'\1width="100%" height="100%"',
+    svg_bytes.decode("utf-8"),
+    count=1,
+)
+# Standalone SVG links navigate the top-level page.
+(ROOT / "resume.svg").write_text(
+    svg.replace("<a ", '<a target="_top" '), encoding="utf-8"
+)
+inline_svg = svg.replace(
+    'width="100%" height="100%"',
+    'width="100%" height="auto" style="display: block"',
+    1,
+)
+inline_svg = re.sub(
+    r'<a (?=[^>]*\bhref="https?://)',
+    '<a target="_blank" rel="noopener noreferrer" ',
+    inline_svg,
+)
 
-# 3. Generate index.html wrapper with sticky top bar and Download PDF button
+# 3. Generate index.html with inline SVG and a sticky action bar
 html_content = """<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Omkar Chandorkar — Resume</title>
-  <meta name="description" content="Resume of Omkar Chandorkar — AI Agent Tooling Developer & Android Engineer">
+  <meta name="description" content="Resume of Omkar Chandorkar — Software Engineer (AI Tooling, Backend & Systems)">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #0f172a;
@@ -58,7 +124,7 @@ html_content = """<!DOCTYPE html>
     }
 
     body {
-      font-family: 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background-color: var(--bg);
       color: var(--text);
       min-height: 100vh;
@@ -75,12 +141,14 @@ html_content = """<!DOCTYPE html>
       background: var(--bar-bg);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1pt solid var(--border);
+      border-bottom: 1px solid var(--border);
       z-index: 100;
       padding: 0.75rem 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
     }
 
     .brand {
@@ -94,6 +162,7 @@ html_content = """<!DOCTYPE html>
       display: flex;
       gap: 0.75rem;
       align-items: center;
+      flex-wrap: wrap;
     }
 
     .btn {
@@ -116,6 +185,17 @@ html_content = """<!DOCTYPE html>
       transform: translateY(-1px);
     }
 
+    .btn-secondary {
+      background-color: transparent;
+      box-shadow: none;
+      padding: 0.5rem 0.6rem;
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--border);
+    }
+
     .btn svg {
       width: 16px;
       height: 16px;
@@ -125,7 +205,7 @@ html_content = """<!DOCTYPE html>
     /* Resume container */
     .container {
       width: 100%;
-      max-width: 860px;
+      max-width: clamp(860px, 60vw, 1040px);
       padding: 2rem 1rem 3rem 1rem;
       display: flex;
       justify-content: center;
@@ -140,17 +220,15 @@ html_content = """<!DOCTYPE html>
       line-height: 0;
     }
 
-    .resume-object {
+    .card svg {
       width: 100%;
       height: auto;
-      aspect-ratio: 595.28 / 841.89;
-      border: none;
       display: block;
     }
 
     @media (max-width: 640px) {
       .top-bar {
-        padding: 0.6em 1rem;
+        padding: 0.6rem 1rem;
       }
       .brand {
         font-size: 0.95rem;
@@ -159,8 +237,37 @@ html_content = """<!DOCTYPE html>
         padding: 0.4rem 0.75rem;
         font-size: 0.8rem;
       }
+      .actions {
+        gap: 0.35rem;
+      }
+      .btn-secondary {
+        padding: 0.4rem 0.5rem;
+      }
       .container {
         padding: 1rem 0.5rem 2rem 0.5rem;
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      body {
+        background: white;
+        color: black;
+        min-height: 0;
+      }
+      .top-bar {
+        display: none;
+      }
+      .container {
+        max-width: none;
+        padding: 0;
+      }
+      .card {
+        box-shadow: none;
+        border-radius: 0;
       }
     }
   </style>
@@ -177,20 +284,21 @@ html_content = """<!DOCTYPE html>
         </svg>
         Download PDF
       </a>
+      <a href="https://github.com/gotenksIN" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub</a>
+      <a href="mailto:omkar0926@gmail.com" class="btn btn-secondary">Email</a>
     </div>
   </header>
 
   <main class="container">
     <div class="card">
-      <object data="resume.svg" type="image/svg+xml" class="resume-object" title="Omkar Chandorkar Resume">
-        <p>Your browser does not support vector SVG rendering. You can <a href="Omkar_Chandorkar.pdf">download the PDF resume here</a>.</p>
-      </object>
+      <!-- RESUME_SVG -->
     </div>
   </main>
 
 </body>
 </html>
 """
+html_content = html_content.replace("<!-- RESUME_SVG -->", inline_svg)
 
 (ROOT / "index.html").write_text(html_content, encoding="utf-8")
 print("Build complete: Omkar_Chandorkar.pdf, resume.svg, index.html generated successfully.")

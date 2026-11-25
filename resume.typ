@@ -51,6 +51,8 @@
     align: (right, left),
     text(font: mono, size: font-contact-key, weight: 500, fill: muted)[EMAIL],
     link("mailto:omkar0926@gmail.com")[#text(font: mono, size: font-contact-val, weight: 450, fill: secondary)[omkar0926\@gmail.com]],
+    text(font: mono, size: font-contact-key, weight: 500, fill: muted)[WEBSITE],
+    link("https://gotenksin.github.io/resume/")[#text(font: mono, size: font-contact-val, weight: 450, fill: secondary)[gotenksin.github.io/resume]],
     text(font: mono, size: font-contact-key, weight: 500, fill: muted)[GITHUB],
     link("https://github.com/gotenksIN")[#text(font: mono, size: font-contact-val, weight: 450, fill: secondary)[github.com/gotenksIN]],
     text(font: mono, size: font-contact-key, weight: 500, fill: muted)[LINKEDIN],
@@ -115,18 +117,28 @@
     text(size: font-entry-role, weight: 580, fill: secondary)[Languages],
     [TypeScript, Python, C, C++, Java, Kotlin, Bash],
     text(size: font-entry-role, weight: 580, fill: secondary)[Tools & Platforms],
-    [AOSP, Bun, Pydantic, FFmpeg, Git, GitHub Actions, Docker, systemd],
+    [AOSP, Bun, bwrap, Pydantic, FFmpeg, Git, GitHub Actions, Docker, systemd],
   )
 ])
 
 #section("02", "Projects", [
   #entry(
+    "OmkarSWE bench",
+    role: "TypeScript · Bun · bwrap · oxc-parser",
+    date: "2026",
+    url: "https://github.com/gotenksIN/omkar-swe-bench",
+    body: [
+      - Built an OpenCode benchmark running 37 tasks (coder, reviewer, pair) across 421 sandboxed `bwrap` trials.
+      - Graded outputs via behavioral probes, AST checks, Git invariants, and trace verification (`LSAS`/`ACI`).
+    ],
+  )
+  #entry(
     "OpenCode Agent Plugins",
     role: "TypeScript · Bun · Gemini API · OpenAI API",
     date: "2026",
     body: [
-      - #link("https://github.com/gotenksIN/opencode-websearch-addons")[`opencode-websearch-addons`#h(2.5pt)#ext-arrow] — OpenAI/Gemini `websearch` providers with SSE citations and fallback.
-      - #link("https://github.com/gotenksIN/opencode-commit-guard")[`opencode-commit-guard`#h(2.5pt)#ext-arrow] — Pre-execution `git commit` hook enforcing message and signing baselines.
+      - #link("https://github.com/gotenksIN/opencode-websearch-addons")[`opencode-websearch-addons`#h(2.5pt)#ext-arrow] — OpenAI/Gemini search with SSE citation passages and fallback.
+      - #link("https://github.com/gotenksIN/opencode-commit-guard")[`opencode-commit-guard`#h(2.5pt)#ext-arrow] — Pre-execution `git commit` guard enforcing message and signing baselines.
     ],
   )
   #entry(
@@ -135,8 +147,8 @@
     date: "2026",
     url: "https://github.com/gotenksIN/video-subtitler",
     body: [
-      - Built a four-pass CLI generating English WebVTT subtitles with grounded term research and Pydantic.
-      - Added concurrent chunking, boundary audio refinement, resumable retries, and atomic file~writes.
+      - Built a four-pass CLI generating English WebVTT subtitles with parallel grounding and Pydantic.
+      - Added 7-worker chunking, `[boundary ± 10s]` audio repair, `fcntl.flock` retries, and atomic~writes.
     ],
   )
   #entry(
@@ -146,7 +158,7 @@
     url: "https://github.com/gotenksIN/telegram-translator",
     body: [
       - Built a bot translating replies and X, YouTube (`yt-dlp`), and OpenGraph previews via Gemini JSON.
-      - Enforced SSRF IP checks, sliding-window rate limits, concurrency caps, and systemd memory limits.
+      - Enforced pinned-IP SSRF checks, sliding-window rate limits, concurrency caps, and `512M` `systemd` limits.
     ],
   )
 ])
@@ -168,7 +180,7 @@
     date: "Aug 2023 – Oct 2023",
     url: "https://peartree.to/",
     body: [
-      - Ported ParallelSpace functionality to GrapheneOS.
+      - Ported ParallelSpace multi-profile app isolation to GrapheneOS.
       - Researched per-app VM isolation using `crosvm` on Google Pixel devices.
     ],
   )
